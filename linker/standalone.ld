@@ -48,6 +48,7 @@ SECTIONS
         _etext = .;
     } > FLASH
 
+    _sidata = LOADADDR(.data);
     .data :
     {
         . = ALIGN(4);
@@ -56,7 +57,7 @@ SECTIONS
         *(.data*)
         . = ALIGN(4);
         _edata = .;
-    } > SRAM
+    } > SRAM AT > FLASH
 
     .bss :
     {
