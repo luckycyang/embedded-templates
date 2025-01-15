@@ -31,7 +31,7 @@
 MEMORY
 {
   FLASH : ORIGIN = 0x08000000, LENGTH = 64K
-  SRAM : ORIGIN = 0x20000000, LENGTH = 8K
+  RAM : ORIGIN = 0x20000000, LENGTH = 8K
 }
 
 ENTRY(reset_handler)
@@ -46,7 +46,7 @@ SECTIONS
 {
     .isr_vector :
     {
-        LONG(ORIGIN(SRAM) + LENGTH(SRAM));
+        LONG(ORIGIN(RAM) + LENGTH(RAM));
         . = ALIGN(4);
         KEEP(*(.isr_vector))
         *(.text*)
