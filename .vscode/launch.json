@@ -14,7 +14,23 @@
             "showDevDebugOutput": "none",
             "servertype": "pyocd",
             "targetId": "PY32F030x8"
-        }
-
+        },
+        {
+            "preLaunchTask": "${defaultBuildTask}",
+            "type": "probe-rs-debug",
+            "request": "launch",
+            "name": "probe_rs Executable Test",
+            "flashingConfig": {
+              "flashingEnabled": true,
+            },
+            //!MODIFY
+            "chip": "PY32F030x8",
+            "coreConfigs": [
+              {
+                //!MODIFY
+                "programBinary": "build/demo.elf"
+              }
+            ]
+          }
     ]
 }

@@ -1,11 +1,10 @@
-all:
-	build
+all: build
 build:
-	cmake --no-warn-unused-cli -S. -Bbuild -GNinja
-	cmake --build build --config Debug --target all --
+	cmake -Bbuild -GNinja
+	ninja -C build
 
 clean:
-  rm -rf build
+	rm -rf build
 
 
 flash:
