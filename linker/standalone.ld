@@ -31,7 +31,7 @@
 MEMORY
 {
   FLASH : ORIGIN = 0x08000000, LENGTH = 64K
-  SRAM : ORIGIN = 0x20000000, LENGTH = 20K
+  SRAM : ORIGIN = 0x20000000, LENGTH = 8K
 }
 
 ENTRY(reset_handler)
@@ -40,6 +40,7 @@ SECTIONS
 {
     .text :
     {
+        LONG(ORIGIN(SRAM) + LENGTH(SRAM));
         . = ALIGN(4);
         KEEP(*(.isr_vector))
         *(.text*)
@@ -52,7 +53,7 @@ SECTIONS
     .data :
     {
         . = ALIGN(4);
-        _data = .;
+        _sdata = .;
         *(vtable)
         *(.data*)
         . = ALIGN(4);
@@ -62,7 +63,7 @@ SECTIONS
     .bss :
     {
         . = ALIGN(4);
-        _bss = .;
+        _sbss = .;
         *(.bss*)
         *(COMMON)
           . = ALIGN(4);
