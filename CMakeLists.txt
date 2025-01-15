@@ -20,4 +20,4 @@ target_compile_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:Debug>:-g>
 
 target_link_options(${PROJECT_NAME} PRIVATE -T
                     ${PROJECT_SOURCE_DIR}/linker/standalone.ld)
-target_link_libraries(${PROJECT_NAME} PRIVATE)
+target_link_libraries(${PROJECT_NAME} PRIVATE Device)

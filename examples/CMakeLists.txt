@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 # set(CMAKE_TOOLCHAIN_FILE ../toolchain/gcc.cmake)
 
 add_compile_options(-nostdlib)
-add_link_options(-T ../linker/standalone.ld)
+add_link_options(-T ${CMAKE_SOURCE_DIR}/linker/standalone.ld)
 
 project(cmsis_device)
 add_executable(cmsis_device ./cmsis_device.c ../startup/cortex-m.c)
