@@ -1,3 +1,6 @@
 [submodule "lib/PY32F0xx_Firmware"]
 	path = lib/PY32F0xx_Firmware
 	url = https://github.com/OpenPuya/PY32F0xx_Firmware
+[submodule "lib/RTT"]
+	path = lib/RTT
+	url = https://github.com/SEGGERMicro/RTT

@@ -10,6 +10,6 @@ int main() {
   GPIOA->OTYPER |= GPIO_OTYPER_OT2 & (1U << GPIO_OTYPER_OT2_Pos);
   while (1) {
     GPIOA->ODR = GPIO_ODR_OD2 ^ GPIOA->ODR;
-    __NOP();
+    __WFI();
   }
 }

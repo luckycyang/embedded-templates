@@ -4,7 +4,7 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_TOOLCHAIN_FILE ./toolchain/gcc.cmake)
 
 add_definitions(-DPY32F030x8)
-add_compile_options(-mcpu=cortex-m0plus -mthumb)
+add_compile_options(-mcpu=cortex-m0plus -mthumb --specs=rdimon.specs)
 
 # set the project name
 project(demo)
@@ -20,4 +20,4 @@ target_compile_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:Debug>:-g>
 
 target_link_options(${PROJECT_NAME} PRIVATE -T
                     ${PROJECT_SOURCE_DIR}/linker/standalone.ld)
-target_link_libraries(${PROJECT_NAME} PRIVATE Device)
+target_link_libraries(${PROJECT_NAME} PRIVATE Device m gcc c rdimon)
