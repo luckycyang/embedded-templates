@@ -30,8 +30,8 @@
 /* Copy from stm32f1xx_hal rs */
 MEMORY
 {
-  FLASH : ORIGIN = 0x08000000, LENGTH = 64K
-  RAM : ORIGIN = 0x20000000, LENGTH = 8K
+  FLASH : ORIGIN = 0x08000000, LENGTH = 24K
+  RAM : ORIGIN = 0x20000000, LENGTH = 3K
 }
 
 ENTRY(reset_handler)
