@@ -15,6 +15,7 @@ add_link_options(
 include_directories(/usr/arm-none-eabi/include)
 
 add_subdirectory(lib)
+add_subdirectory(examples)
 
 # set the project name
 project(demo)
@@ -22,4 +23,4 @@ project(demo)
 # add the executable
 add_executable(demo src/main.c startup/cortex-m.c)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Device)
+target_link_libraries(${PROJECT_NAME} PRIVATE)

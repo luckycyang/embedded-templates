@@ -1,36 +1,40 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "preLaunchTask": "${defaultBuildTask}",
+      "cwd": "${workspaceFolder}",
+      "executable": "${input:executable}",
+      "name": "Debug with PyOCD",
+      "request": "launch",
+      "type": "cortex-debug",
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none",
+      "servertype": "pyocd",
+      "targetId": "PY32F030x8"
+    },
+    {
+      "preLaunchTask": "${defaultBuildTask}",
+      "type": "probe-rs-debug",
+      "request": "launch",
+      "name": "probe_rs Executable Test",
+      "flashingConfig": {
+        "flashingEnabled": true
+      },
+      "chip": "PY32F030x8",
+      "coreConfigs": [
         {
-            "cwd": "${workspaceFolder}",
-            "executable": "build/demo.elf",
-            "name": "Debug with PyOCD",
-            "request": "launch",
-            "type": "cortex-debug",
-            "runToEntryPoint": "main",
-            "showDevDebugOutput": "none",
-            "servertype": "pyocd",
-            "targetId": "PY32F030x8"
-        },
-        {
-            "preLaunchTask": "${defaultBuildTask}",
-            "type": "probe-rs-debug",
-            "request": "launch",
-            "name": "probe_rs Executable Test",
-            "flashingConfig": {
-              "flashingEnabled": true,
-            },
-            //!MODIFY
-            "chip": "PY32F030x8",
-            "coreConfigs": [
-              {
-                //!MODIFY
-                "programBinary": "build/demo.elf"
-              }
-            ]
-          }
-    ]
+          "programBinary": "${input:executable}"
+        }
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "executable",
+      "type": "promptString",
+      "description": "Enter the path to the executable",
+      "default": "build/demo.elf"
+    }
+  ]
 }

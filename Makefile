@@ -1,5 +1,6 @@
 all: build
-build:
+build: examples
+	python examples.py
 	cmake -Bbuild -GNinja
 	ninja -C build
 
