@@ -22,3 +22,9 @@ add_executable(hal_gpio ./hal_gpio.c ${CMAKE_SOURCE_DIR}/startup/cortex-m.c ${CM
 target_link_libraries(hal_gpio PRIVATE  RTT CONFIG CMSIS Device HAL)
 
 
+
+project(exti_key)
+add_executable(exti_key ./exti_key.c ${CMAKE_SOURCE_DIR}/startup/cortex-m.c ${CMAKE_SOURCE_DIR}/src/py32f0xx_it.c ${CMAKE_SOURCE_DIR}/src/system_py32f0xx.c ${CMAKE_SOURCE_DIR}/src/py32f0xx_hal_msp.c)
+target_link_libraries(exti_key PRIVATE  RTT CONFIG CMSIS Device HAL)
+
+

@@ -7,6 +7,8 @@
 
 static void KEY_Init(void);
 int main() {
+  // 有个问题是 使用 HAL_Init() 会造成卡死，IPSR 值为 15
+  // HAL_Init();
   KEY_Init();
   HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
   while (1) {
@@ -26,7 +28,9 @@ static void KEY_Init(void) {
 }
 
 void EXTI4_15_IRQHandler(void) {
-  SEGGER_RTT_printf(0, "Release Key\r\n");
+  uint32_t result;
+  __asm__ volatile("MRS %0, ipsr" : "=r"(result));
+  SEGGER_RTT_printf(0, "Press Key, IPSR: %d\r\n", result);
   NVIC_ClearPendingIRQ(EXTI4_15_IRQn);
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
 }

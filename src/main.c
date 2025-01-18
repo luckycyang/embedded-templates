@@ -5,14 +5,14 @@
 #include "py32f0xx_hal_gpio.h"
 #include "py32f0xx_hal_rcc.h"
 #include <py32f0xx_hal.h>
-#include <stdint.h>
 
 static void KEY_Init(void);
 int main() {
+  HAL_Init();
   KEY_Init();
   HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
   while (1) {
-    SEGGER_RTT_printf(0, "Maybe OK\r\n");
+    SEGGER_RTT_printf(0, "6\r\n");
   }
 }
 
@@ -30,5 +30,5 @@ static void KEY_Init(void) {
 
 void EXTI4_15_IRQHandler(void) {
   SEGGER_RTT_printf(0, "Release Key\r\n");
-  NVIC_ClearPendingIRQ(EXTI4_15_IRQn);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
 }

@@ -13,11 +13,13 @@ cmsis_device_cmake = generate_cmake("cmsis_device", ["./cmsis_device.c"], [])
 justprint_cmake = generate_cmake("justprint", ["./justprint.c"], [])
 hal_delay = generate_cmake("hal_delay", ["./hal_delay.c"], [])
 hal_gpio = generate_cmake("hal_gpio", ["./hal_gpio.c"], [])
+exti_key = generate_cmake("exti_key", ["./exti_key.c"], [])
 
 lists.append(cmsis_device_cmake)
 lists.append(justprint_cmake)
 lists.append(hal_delay)
 lists.append(hal_gpio)
+lists.append(exti_key)
 
 for i in lists:
     raw += i
