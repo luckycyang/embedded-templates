@@ -34,7 +34,7 @@ MEMORY
   RAM : ORIGIN = 0x20000000, LENGTH = 3K
 }
 
-ENTRY(reset_handler)
+ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM) + LENGTH(RAM);    /* end of RAM */
