@@ -1,115 +1,110 @@
+
 #include <stdint.h>
 #include <string.h>
 
 extern uint32_t _sidata, _sdata, _edata, _sbss, _ebss;
 
-void reset_handler(void);
-void default_handler(void);
+void Reset_Handler(void);
+void Default_Handler(void);
 extern int main(void);
-void nmi_handler(void) __attribute__((weak, alias("default_handler")));
-void hardfault_handler(void) __attribute__((weak, alias("default_handler")));
-void busfault_handler(void) __attribute__((weak, alias("default_handler")));
-void usagefault_handler(void) __attribute__((weak, alias("default_handler")));
-void svc_handler(void) __attribute__((weak, alias("default_handler")));
-void pend_sv_handler(void) __attribute__((weak, alias("default_handler")));
-void systick_handler(void) __attribute__((weak, alias("default_handler")));
+void NMI_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void HardFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void BusFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void UsageFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void SVC_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void PendSV_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void SysTick_Handler(void) __attribute__((weak, alias("Default_Handler")));
 
-void wwdg_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void pvd_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void rtc_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void flash_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void rcc_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void exti0_1_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void exti2_3_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void exti4_15_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void dma1_channel1_irqhandler(void)
-    __attribute__((weak, alias("default_handler")));
-void dma1_channel2_3_irqhandler(void)
-    __attribute__((weak, alias("default_handler")));
-void adc_comp_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void tim1_brk_up_trg_com_irqhandler(void)
-    __attribute__((weak, alias("default_handler")));
-void tim1_cc_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void tim3_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void lptim1_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void tim14_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void tim16_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void tim17_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void i2c1_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void spi1_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void spi2_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void usart1_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void usart2_irqhandler(void) __attribute__((weak, alias("default_handler")));
-void led_irqhandler(void) __attribute__((weak, alias("default_handler")));
+void WWDG_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void PVD_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void RTC_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void FLASH_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void RCC_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void EXTI0_1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void EXTI2_3_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void EXTI4_15_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void DMA1_Channel1_IRQHandler(void)
+    __attribute__((weak, alias("Default_Handler")));
+void DMA1_Channel2_3_IRQHandler(void)
+    __attribute__((weak, alias("Default_Handler")));
+void ADC_COMP_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void TIM1_BRK_UP_TRG_COM_IRQHandler(void)
+    __attribute__((weak, alias("Default_Handler")));
+void TIM1_CC_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void TIM3_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void LPTIM1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void TIM14_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void TIM16_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void TIM17_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void I2C1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void SPI1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void SPI2_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void USART1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void USART2_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void LED_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
 
 void (*const isr_vector[])(void) __attribute__((section(".isr_vector"))) = {
-    reset_handler,      // Reset Handler
-    nmi_handler,        // NMI Handler
-    hardfault_handler,  // Hard Fault
-    busfault_handler,   // Bus Fault
-    usagefault_handler, // Usage Fault
-    svc_handler,        // SVCall Handler
+    Reset_Handler,      // Reset Handler
+    NMI_Handler,        // NMI Handler
+    HardFault_Handler,  // Hard Fault
+    BusFault_Handler,   // Bus Fault
+    UsageFault_Handler, // Usage Fault
+    SVC_Handler,        // SVCall Handler
     (void (*)(void))0,  // Reserved
     (void (*)(void))0,  // Reserved
-    pend_sv_handler,    // PendSV Handler
-    systick_handler,    // SysTick Handler
+    PendSV_Handler,     // PendSV Handler
+    SysTick_Handler,    // SysTick Handler
     // External Interrupts
-    wwdg_irqhandler,                // Window Watchdog
-    pvd_irqhandler,                 // PVD
-    rtc_irqhandler,                 // RTC
-    flash_irqhandler,               // Flash
-    rcc_irqhandler,                 // RCC
-    exti0_1_irqhandler,             // EXTI Line 0 and 1
-    exti2_3_irqhandler,             // EXTI Line 2 and 3
-    exti4_15_irqhandler,            // EXTI Line 4 to 15
+    WWDG_IRQHandler,                // Window Watchdog
+    PVD_IRQHandler,                 // PVD
+    RTC_IRQHandler,                 // RTC
+    FLASH_IRQHandler,               // Flash
+    RCC_IRQHandler,                 // RCC
+    EXTI0_1_IRQHandler,             // EXTI Line 0 and 1
+    EXTI2_3_IRQHandler,             // EXTI Line 2 and 3
+    EXTI4_15_IRQHandler,            // EXTI Line 4 to 15
     (void (*)(void))0,              // Reserved
-    dma1_channel1_irqhandler,       // DMA1 Channel 1
-    dma1_channel2_3_irqhandler,     // DMA1 Channel 2 and 3
+    DMA1_Channel1_IRQHandler,       // DMA1 Channel 1
+    DMA1_Channel2_3_IRQHandler,     // DMA1 Channel 2 and 3
     (void (*)(void))0,              // Reserved
-    adc_comp_irqhandler,            // ADC and Comparator
-    tim1_brk_up_trg_com_irqhandler, // TIM1 Break, Update, Trigger and
+    ADC_COMP_IRQHandler,            // ADC and Comparator
+    TIM1_BRK_UP_TRG_COM_IRQHandler, // TIM1 Break, Update, Trigger and
                                     // Commutation
-    tim1_cc_irqhandler,             // TIM1 Capture Compare
+    TIM1_CC_IRQHandler,             // TIM1 Capture Compare
     (void (*)(void))0,              // Reserved
-    tim3_irqhandler,                // TIM3
-    lptim1_irqhandler,              // LPTIM1
+    TIM3_IRQHandler,                // TIM3
+    LPTIM1_IRQHandler,              // LPTIM1
     (void (*)(void))0,              // Reserved
-    tim14_irqhandler,               // TIM14
+    TIM14_IRQHandler,               // TIM14
     (void (*)(void))0,              // Reserved
-    tim16_irqhandler,               // TIM16
-    tim17_irqhandler,               // TIM17
-    i2c1_irqhandler,                // I2C1
+    TIM16_IRQHandler,               // TIM16
+    TIM17_IRQHandler,               // TIM17
+    I2C1_IRQHandler,                // I2C1
     (void (*)(void))0,              // Reserved
-    spi1_irqhandler,                // SPI1
-    spi2_irqhandler,                // SPI2
-    usart1_irqhandler,              // USART1
-    usart2_irqhandler,              // USART2
+    SPI1_IRQHandler,                // SPI1
+    SPI2_IRQHandler,                // SPI2
+    USART1_IRQHandler,              // USART1
+    USART2_IRQHandler,              // USART2
     (void (*)(void))0,              // Reserved
-    led_irqhandler,                 // LED
+    LED_IRQHandler,                 // LED
     (void (*)(void))0               // Reserved
 };
 
-void reset_handler(void) {
+void Reset_Handler(void) {
   uint32_t data_size = (uint32_t)&_edata - (uint32_t)&_sdata;
   uint8_t *flash_data = (uint8_t *)&_sidata;
   uint8_t *sram_data = (uint8_t *)&_sdata;
   uint32_t bss_size = (uint32_t)&_ebss - (uint32_t)&_sbss;
   uint8_t *start_bss = (uint8_t *)&_sbss;
   // Copy data section from Flash to SRAM
-  /*for (uint32_t i = 0; i < data_size; i++) {*/
-  /*  sram_data[i] = flash_data[i];*/
-  /*}*/
   memcpy(sram_data, flash_data, data_size);
 
   // Zero-fill .bss section in SRAM
-  //   /*for (uint32_t i = 0; i < bss_size; i++) {*/
-  /*  bss[i] = 0;*/
-  /*}*/
   memset(start_bss, 0, bss_size);
 
   main();
 }
-void default_handler(void) {
+void Default_Handler(void) {
   while (1) {
   }
 }
