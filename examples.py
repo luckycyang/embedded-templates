@@ -11,10 +11,11 @@ target_link_libraries({project_name} PRIVATE {' '.join(libraries)})
 # 示例用法
 cmsis_device_cmake = generate_cmake("cmsis_device", ["./cmsis_device.c"], ["CMSIS", "Device"])
 justprint_cmake = generate_cmake("justprint", ["./justprint.c"], ["RTT"])
-
+hal_delay = generate_cmake("hal_delay", ["./hal_delay.c"], ["HAL", "RTT"])
 
 lists.append(cmsis_device_cmake)
 lists.append(justprint_cmake)
+lists.append(hal_delay)
 
 for i in lists:
     raw += i

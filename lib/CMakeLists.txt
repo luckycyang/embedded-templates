@@ -27,3 +27,11 @@ target_link_libraries(RTT PRIVATE CONFIG)
 # freertos_config SYSTEM INTERFACE inc) # The config file directory #
 # target_compile_definitions(freertos_config PUBLIC projCOVERAGE_TEST=0)
 # set(FREERTOS_PORT GCC_ARM_CM0) add_subdirectory(FreeRTOS-Kernel)
+
+file(GLOB HAL_SRC ./PY32F0xx_Firmware/Drivers/PY32F0xx_HAL_Driver/Src/*.c)
+project(HAL)
+add_library(HAL STATIC)
+target_sources(HAL PRIVATE ${HAL_SRC})
+target_include_directories(
+  HAL PUBLIC ./PY32F0xx_Firmware/Drivers/PY32F0xx_HAL_Driver/Inc)
+target_link_libraries(HAL PUBLIC Device CONFIG)

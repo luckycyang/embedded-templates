@@ -10,3 +10,9 @@ add_executable(justprint ./justprint.c ${CMAKE_SOURCE_DIR}/startup/cortex-m.c)
 target_link_libraries(justprint PRIVATE RTT)
 
 
+
+project(hal_delay)
+add_executable(hal_delay ./hal_delay.c ${CMAKE_SOURCE_DIR}/startup/cortex-m.c)
+target_link_libraries(hal_delay PRIVATE HAL RTT)
+
+

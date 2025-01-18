@@ -5,6 +5,6 @@ int main() {
   SEGGER_RTT_Init();
 
   while (1) {
-    SEGGER_RTT_printf(0, "Hello\r\n");
+    SEGGER_RTT_printf(0, "Hello: %d\r\n", i++);
   }
 }

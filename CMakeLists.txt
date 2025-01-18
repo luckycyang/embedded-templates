@@ -23,4 +23,4 @@ project(demo)
 # add the executable
 add_executable(demo src/main.c startup/cortex-m.c)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE)
+target_link_libraries(${PROJECT_NAME} PRIVATE HAL)
