@@ -35,3 +35,5 @@ target_sources(HAL PRIVATE ${HAL_SRC})
 target_include_directories(
   HAL PUBLIC ./PY32F0xx_Firmware/Drivers/PY32F0xx_HAL_Driver/Inc)
 target_link_libraries(HAL PUBLIC Device CONFIG)
+
+add_subdirectory(FreeRTOS)
