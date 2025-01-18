@@ -20,13 +20,14 @@ void LED_Init(Output *led);
 void Output_Init(Output *pin);
 
 int main() {
-  /*HAL_Init();*/
+  HAL_Init();
 
   Output led;
   LED_Init(&led);
   Output_Init(&led);
 
   while (1) {
+    HAL_Delay(500);
     led.toggle(&led);
   }
 }

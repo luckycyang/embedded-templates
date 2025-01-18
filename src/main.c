@@ -1,60 +1,34 @@
 
-#include "py32f0xx_hal.h"
+#include "SEGGER_RTT.h"
+#include "py32f030x8.h"
+#include "py32f0xx_hal_cortex.h"
 #include "py32f0xx_hal_gpio.h"
 #include "py32f0xx_hal_rcc.h"
+#include <py32f0xx_hal.h>
 #include <stdint.h>
 
-typedef struct Output {
-  GPIO_TypeDef *port;
-  uint32_t Pin;
-  void (*set_hight)(struct Output *);
-  void (*set_low)(struct Output *);
-  void (*toggle)(struct Output *);
-} Output;
-
-// 函数声明
-void _set_hight(Output *pin);
-void _set_low(Output *pin);
-void _toggle(Output *pin);
-void LED_Init(Output *led);
-void Output_Init(Output *pin);
-
+static void KEY_Init(void);
 int main() {
-  /*HAL_Init();*/
-
-  Output led;
-  LED_Init(&led);
-  Output_Init(&led);
-
+  KEY_Init();
+  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
   while (1) {
-    led.toggle(&led);
+    SEGGER_RTT_printf(0, "Maybe OK\r\n");
   }
 }
 
-void _set_hight(Output *pin) {
-  HAL_GPIO_WritePin(pin->port, pin->Pin, GPIO_PIN_SET);
-}
-
-void _set_low(Output *pin) {
-  HAL_GPIO_WritePin(pin->port, pin->Pin, GPIO_PIN_RESET);
-}
-
-void _toggle(Output *pin) { HAL_GPIO_TogglePin(pin->port, pin->Pin); }
-
-void LED_Init(Output *led) {
+static void KEY_Init(void) {
   __HAL_RCC_GPIOA_CLK_ENABLE();
   GPIO_InitTypeDef GPIO_InitStruct;
-  GPIO_InitStruct.Pin = GPIO_PIN_2;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-  led->Pin = GPIO_PIN_2;
-  led->port = GPIOA;
-  Output_Init(led);
+  NVIC_SetPriority(EXTI4_15_IRQn, 1);
+  HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
 }
 
-void Output_Init(Output *pin) {
-  pin->set_hight = _set_hight;
-  pin->set_low = _set_low;
-  pin->toggle = _toggle;
+void EXTI4_15_IRQHandler(void) {
+  SEGGER_RTT_printf(0, "Release Key\r\n");
+  NVIC_ClearPendingIRQ(EXTI4_15_IRQn);
 }

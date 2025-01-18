@@ -2,6 +2,13 @@
 #include <stdint.h>
 #include <string.h>
 
+#ifdef DebugLog
+#include "SEGGER_RTT.h"
+#define LOG(x, y) SEGGER_RTT_printf(0, x, y)
+#else
+#define LOG(x, y) ((void)0)
+#endif
+
 extern uint32_t _sidata, _sdata, _edata, _sbss, _ebss;
 
 void Reset_Handler(void);
@@ -9,9 +16,11 @@ void Default_Handler(void);
 extern int main(void);
 void NMI_Handler(void) __attribute__((weak, alias("Default_Handler")));
 void HardFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void MemManage_Handler(void) __attribute__((weak, alias("Default_Handler")));
 void BusFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
 void UsageFault_Handler(void) __attribute__((weak, alias("Default_Handler")));
 void SVC_Handler(void) __attribute__((weak, alias("Default_Handler")));
+void DebugMon_Handler(void) __attribute__((weak, alias("Default_Handler")));
 void PendSV_Handler(void) __attribute__((weak, alias("Default_Handler")));
 void SysTick_Handler(void) __attribute__((weak, alias("Default_Handler")));
 
@@ -47,10 +56,15 @@ void (*const isr_vector[])(void) __attribute__((section(".isr_vector"))) = {
     Reset_Handler,      // Reset Handler
     NMI_Handler,        // NMI Handler
     HardFault_Handler,  // Hard Fault
+    MemManage_Handler,  // Memory Management
     BusFault_Handler,   // Bus Fault
     UsageFault_Handler, // Usage Fault
-    SVC_Handler,        // SVCall Handler
     (void (*)(void))0,  // Reserved
+    (void (*)(void))0,  // Reserved
+    (void (*)(void))0,  // Reserved
+    (void (*)(void))0,  // Reserved
+    SVC_Handler,        // SVCall Handler
+    DebugMon_Handler,   // Debug Monitor
     (void (*)(void))0,  // Reserved
     PendSV_Handler,     // PendSV Handler
     SysTick_Handler,    // SysTick Handler
@@ -102,9 +116,17 @@ void Reset_Handler(void) {
   // Zero-fill .bss section in SRAM
   memset(start_bss, 0, bss_size);
 
+  // if HAL
+  extern void SystemInit(void);
+  SystemInit();
+
   main();
 }
 void Default_Handler(void) {
+  uint32_t result;
+
+  __asm__ volatile("MRS %0, ipsr" : "=r"(result));
+  LOG("IPSR: %d\r\n", result);
   while (1) {
   }
 }

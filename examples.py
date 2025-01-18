@@ -3,19 +3,21 @@ raw = ""
 def generate_cmake(project_name, source_files, libraries):
     cmake_template = f"""
 project({project_name})
-add_executable({project_name} {' '.join(source_files)} ${{CMAKE_SOURCE_DIR}}/startup/cortex-m.c)
-target_link_libraries({project_name} PRIVATE {' '.join(libraries)})
+add_executable({project_name} {' '.join(source_files)} ${{CMAKE_SOURCE_DIR}}/startup/cortex-m.c ${{CMAKE_SOURCE_DIR}}/src/py32f0xx_it.c ${{CMAKE_SOURCE_DIR}}/src/system_py32f0xx.c ${{CMAKE_SOURCE_DIR}}/src/py32f0xx_hal_msp.c)
+target_link_libraries({project_name} PRIVATE {' '.join(libraries)} RTT CONFIG CMSIS Device HAL)
 """
     return cmake_template
 
 # 示例用法
-cmsis_device_cmake = generate_cmake("cmsis_device", ["./cmsis_device.c"], ["CMSIS", "Device"])
-justprint_cmake = generate_cmake("justprint", ["./justprint.c"], ["RTT"])
-hal_delay = generate_cmake("hal_delay", ["./hal_delay.c"], ["HAL", "RTT"])
+cmsis_device_cmake = generate_cmake("cmsis_device", ["./cmsis_device.c"], [])
+justprint_cmake = generate_cmake("justprint", ["./justprint.c"], [])
+hal_delay = generate_cmake("hal_delay", ["./hal_delay.c"], [])
+hal_gpio = generate_cmake("hal_gpio", ["./hal_gpio.c"], [])
 
 lists.append(cmsis_device_cmake)
 lists.append(justprint_cmake)
 lists.append(hal_delay)
+lists.append(hal_gpio)
 
 for i in lists:
     raw += i

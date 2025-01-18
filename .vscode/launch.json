@@ -24,10 +24,11 @@
       "chip": "PY32F030x8",
       "coreConfigs": [
         {
-          "programBinary": "${input:executable}"
+          "programBinary": "${input:executable}",
+          "rttEnabled": true
         }
       ]
-    }
+    },
   ],
   "inputs": [
     {
