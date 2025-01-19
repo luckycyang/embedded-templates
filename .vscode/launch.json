@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "preLaunchTask": "${defaultBuildTask}",
+      "cwd": "${workspaceFolder}",
+      "executable": "${input:executable}",
+      "name": "Debug with PyOCD",
+      "request": "launch",
+      "type": "cortex-debug",
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none",
+      "servertype": "pyocd",
+      "targetId": "PY32F030x8"
+    },
+    {
+      "preLaunchTask": "${defaultBuildTask}",
+      "type": "probe-rs-debug",
+      "request": "launch",
+      "name": "probe_rs Executable Test",
+      "flashingConfig": {
+        "flashingEnabled": true
+      },
+      "chip": "PY32F030x8",
+      "coreConfigs": [
+        {
+          "programBinary": "${input:executable}",
+          "rttEnabled": true
+        }
+      ]
+    },
+  ],
+  "inputs": [
+    {
+      "id": "executable",
+      "type": "promptString",
+      "description": "Enter the path to the executable",
+      "default": "build/demo.elf"
+    }
+  ]
+}
