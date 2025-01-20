@@ -21,7 +21,7 @@ add_library(
   ./RTT/RTT/SEGGER_RTT.c ./RTT/RTT/SEGGER_RTT_printf.c
   ./RTT/Syscalls/SEGGER_RTT_Syscalls_GCC.c ./RTT/RTT/SEGGER_RTT_ASM_ARMv7M.S)
 target_include_directories(RTT PUBLIC ./RTT/RTT)
-target_link_libraries(RTT PRIVATE CONFIG)
+target_link_libraries(RTT PRIVATE CONFIG Device)
 
 # add_library(freertos_config INTERFACE) target_include_directories(
 # freertos_config SYSTEM INTERFACE inc) # The config file directory #
